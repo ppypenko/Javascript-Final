@@ -1,39 +1,24 @@
-$(document).ready(function () {
-    // animate example
-    $("#content1").on("click", function () {
-        $(this).animate({
-            backgroundColor: "#40A",
-            width: 500,
-            height: 100
-        }, 1000);
-    });
+function loadData() {
+    
+    var cityinput = document.getElementById("citybox").value;
+    var regioninput = document.getElementById("regionbox").value;
+    
+    request.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q='+cityinput+','+regioninput+'&APPID=ae41cf3cccc31ba9eb00adba1ac0e932');
+    request.onload = loadComplete;
+    request.send();
+}
 
-    // slider example
-    $("#slider").slider({
-        min: 0,
-        max: 255,
-        value: 50,
-        slide: function (event, ui) {
-            console.log(ui.value);
-            $("#content2").css({
-                width: ui.value,
-                height: ui.value
-            });
-        }
-    });
-
-    // accordion example
-    $("#content3").accordion();
-
-    // datepicker example
-    $("#content4").datepicker();
-
-    // draggable example
-    $("#content5").draggable();
-
-    $("#content6").on("click", function () {
-        $(this).hide("explode", {
-            pieces: 128
-        }, 2000);
-    });
-});
+function loadComplete(evt) {
+    var fahrenheit = 0;
+    var kelvin = 0;
+    
+    weatherData = JSON.parse(request.responseText);
+    
+    console.log(weatherData);
+    kelvin = weatherData.main.temp;
+    fahrenheit = kelvin * (9/5) - 459.67;
+    
+    document.getElementById("city").innerHTML = "City: "+ weatherData.name;
+    document.getElementById("weather0").innerHTML = "Weather Description: "+weatherData.weather[0].description;
+    document.getElementById("temp0").innerHTML = "Temperature: "+ fahrenheit.toFixed(2)+"&deg; F";
+}
