@@ -3,36 +3,47 @@
 
 <head>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <link style="text/css" rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <div id="headerApp">
         <div id="headerLogo">
-            <img style width="50px" src="images/burger.png" />
+            <img style width="100px" src="images/burger.png" />
         </div>
-        <div id="headerDate"></div>
         <div id="headerName">
             <h1>Some organization</h1>
         </div>
-
-
+        <div id="headerTime"></div>
     </div>
     <!--contains logo, header, time/date-->
 
+    <div class="dropdown">
+        <a class="account">My Account</a>
+
+        <div class="submenu">
+            <ul class="root">
+                <li><a href="#Dashboard">Dashboard</a></li>
+                <li><a href="#Profile">Profile</a></li>
+                <li><a href="#settings">Settings</a></li>
+                <li><a href="#feedback">Send Feedback</a></li>
+            </ul>
+        </div>
+
+    </div>
+    <!--contains the dropdown selection box-->
 
     <div id="weatherApp">
         <h1 id="theDate" />
-
     </div>
     <div id="cityBox" />
     <div id="regionBox" />
     <div id="rssApp" />
     <div id="stockApp" />
     <script src="index.js"></script>
+    <script src="dropDown.js"></script>
 </body>
 
 </html>
