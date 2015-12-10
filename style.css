@@ -1,34 +1,5 @@
-#content1 {
-    background-color: #A00;
-}
-
-#content2 {
-    background-color: #AA0;
-}
-
-#content3 {
-    width: 300px;
-    margin: 50px;
-}
-
-#content4 {}
-
-#content5 {
-    background-color: #00A;
-}
-
-#content6 {
-    background-color: #A0A;
-}
-
-#slider {
-    width: 300;
-    margin: 10px;
-}
-
-.box {
-    color: #FFF;
-    width: 50px;
-    height: 50px;
-    margin: 10px;
+#rssApp{
+    width: 60%;
+    height: 70%;
+    
 }
