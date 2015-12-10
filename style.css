@@ -1,3 +1,33 @@
+#weatherApp {
+    float: right;
+    position: relative;
+    max-width: 300px;
+    background-color: red;
+}
+
+#headerDate {
+    text-align: center;
+    margin: auto;
+    width: 80px;
+    background-color: red;
+}
+
+#headerName {
+    text-align: center;
+    margin: auto;
+    width: 400px;
+    background-color: green;
+}
+
+#headerLogo {
+    position: relative;
+    float: left;
+}
+
+#headerApp {
+    width: 100%;
+    height: auto;
+    background-color: blue;
 #rssApp{
     width: 60%;
     height: 70%;
