@@ -1,34 +1,31 @@
-#content1 {
-    background-color: #A00;
+#weatherApp {
+    float: right;
+    position: relative;
+    max-width: 300px;
+    background-color: red;
 }
 
-#content2 {
-    background-color: #AA0;
+#headerDate {
+    text-align: center;
+    margin: auto;
+    width: 80px;
+    background-color: red;
 }
 
-#content3 {
-    width: 300px;
-    margin: 50px;
+#headerName {
+    text-align: center;
+    margin: auto;
+    width: 400px;
+    background-color: green;
 }
 
-#content4 {}
-
-#content5 {
-    background-color: #00A;
+#headerLogo {
+    position: relative;
+    float: left;
 }
 
-#content6 {
-    background-color: #A0A;
-}
-
-#slider {
-    width: 300;
-    margin: 10px;
-}
-
-.box {
-    color: #FFF;
-    width: 50px;
-    height: 50px;
-    margin: 10px;
+#headerApp {
+    width: 100%;
+    height: auto;
+    background-color: blue;
 }
