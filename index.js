@@ -7,7 +7,8 @@ var weatherData,
     dd = today.getDate(),
     mm = today.getMonth() + 1,
     yyyy = today.getFullYear(),
-    weatherData;
+    weatherData,
+    stockdata = "goog,msft,aapl,amzn,msft,wmt,bby,fb,twtr,lnkd";
 
 
 //weatherApp h1
@@ -30,32 +31,50 @@ function createElements() {
     document.getElementById("weatherApp").appendChild(temp);
     temp.appendChild(t);
     temp.setAttribute('id', 'temp');
+    
+    var stockinput = document.createElement("input"),
+        stockbtn = document.createElement("button"),
+        stockcontainer = document.createElement('div'),
+        stockLabel = document.createElement("label");
+    document.getElementById("stockApp").appendChild(stockinput);
+    document.getElementById("stockApp").appendChild(stockbtn);
+    document.getElementById("stockApp").appendChild(stockcontainer);
+    
+    stockbtn.setAttribute("id", "getStock");
+    stockcontainer.setAttribute("id", "stockBox");
+    stockinput.setAttribute("id", "stockInfo");
+    stockbtn.innerHTML = "Add Stock";
+    stockbtn.addEventListener("click", stockClick);
+    
 }
 
-
-//function getCurrentDate() {
-//    if (dd < 10) {
-//        dd = '0' + dd
-//    }
-//
-//    if (mm < 10) {
-//        mm = '0' + mm
-//    }
-//
-//    today = mm + '/' + dd + '/' + yyyy;
-//    document.getElementById("headerDate").innerHTML = today;
-//}
-//
 function getCurrentTime() {
     var d = new Date();
-    d.getHours();
-    d.getMinutes();
-    d.getSeconds();
-
     document.getElementById("headerTime").innerHTML = d;
 }
+function stockClick(){
+    var input = document.getElementById("stockInfo");
+    stockdata += ","+input.value;
+    getStocks();
+    input.value = "";
+    
+}
 
-
+function getStocks(){
+    $.ajax({
+    url: "http://www.google.com/finance/info?q=" + stockdata + "",
+    dataType: "jsonp",
+    
+    success: function( data ) {
+        var stock = document.getElementById("stockBox"),
+            html = '<h2>Stocks:</h2>';
+        $.each(data, function (i, e) {
+            html += "<p>" + (i + 1) + ": " + e.t + " - Change: " + e.c + " Current: " + e.l_cur + "</p>";
+        });
+        stock.innerHTML = html;
+    }
+});
+}
 
 $.ajax({
     url      : document.location.protocol + '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent("http://feeds.bbci.co.uk/news/rss.xml?edition=uk"),
@@ -84,6 +103,8 @@ function loadData() {
 }
 
 
+
+
 function loadComplete(evt) {
     var fahrenheit = 0,
         kelvin = 0;
@@ -99,6 +120,6 @@ function loadComplete(evt) {
 }
 
 createElements();
-//getCurrentDate();
 getCurrentTime();
 loadData();
+getStocks();
