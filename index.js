@@ -7,6 +7,9 @@ var weatherData,
     dd = today.getDate(),
     mm = today.getMonth() + 1,
     yyyy = today.getFullYear(),
+    cityinput = 'salt lake city',
+    regioninput = 'ut',
+    weatherData;
     weatherData,
     stockdata = "goog,msft,aapl,amzn,msft,wmt,bby,fb,twtr,lnkd";
 
@@ -31,7 +34,12 @@ function createElements() {
     document.getElementById("weatherApp").appendChild(temp);
     temp.appendChild(t);
     temp.setAttribute('id', 'temp');
-    
+
+    var wind = document.createElement("H1"),
+        w = document.createTextNode("");
+    document.getElementById("weatherApp").appendChild(wind);
+    wind.appendChild(w);
+    wind.setAttribute('id', 'wind');
     var stockinput = document.createElement("input"),
         stockbtn = document.createElement("button"),
         stockcontainer = document.createElement('div'),
@@ -45,7 +53,6 @@ function createElements() {
     stockinput.setAttribute("id", "stockInfo");
     stockbtn.innerHTML = "Add Stock";
     stockbtn.addEventListener("click", stockClick);
-    
 }
 
 function getCurrentTime() {
@@ -60,6 +67,12 @@ function stockClick(){
     
 }
 
+function changePlace() {
+    cityinput = document.getElementById("txtCity").value;
+    regioninput = document.getElementById("txtRegion").value;
+    loadData();
+
+}
 function getStocks(){
     $.ajax({
     url: "http://www.google.com/finance/info?q=" + stockdata + "",
@@ -94,8 +107,7 @@ $.ajax({
 
 function loadData() {
 
-    var cityinput = 'salt lake city',
-        regioninput = 'ut';
+    //    regioninput = 'ut';
 
     request.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q=' + cityinput + ',' + regioninput + '&&APPID=ae41cf3cccc31ba9eb00adba1ac0e932&units=imperial');
     request.onload = loadComplete;
@@ -106,17 +118,19 @@ function loadData() {
 
 
 function loadComplete(evt) {
-    var fahrenheit = 0,
-        kelvin = 0;
-
     weatherData = JSON.parse(request.responseText);
 
     console.log(weatherData);
-    kelvin = weatherData.main.temp;
+    var kelvin = weatherData.main.temp;
 
+    console.log(weatherData);
     document.getElementById("city").innerHTML = "City: " + weatherData.name;
     document.getElementById("weather").innerHTML = "Weather Description: " + weatherData.weather[0].description;
     document.getElementById("temp").innerHTML = "Temperature: " + kelvin.toFixed(2) + "&deg; F";
+    document.getElementById("wind").innerHTML = "Wind Speeds: " + weatherData.wind.speed + " mph";
+
+
+
 }
 
 createElements();
