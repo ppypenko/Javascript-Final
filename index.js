@@ -62,12 +62,12 @@ $.ajax({
     dataType : 'json',
     success  : function (data) {
         if (data.responseData.feed && data.responseData.feed.entries) {
-        var rsspage = "<h2>BBC News</h2>";
+            var rsspage = "<h2>BBC News</h2>";
             $.each(data.responseData.feed.entries, function (i, e) {
-                rsspage += "<p><a href='"+e.link+"'>"+e.title+"</a></p>";
-                rsspage += "<p>"+e.contentSnippet+"</p>";
+                rsspage += "<p><a href='" + e.link + "'>" + e.title + "</a></p>";
+                rsspage += "<p>" + e.contentSnippet + "</p>";
             });
-        rssdiv.innerHTML = (rsspage);
+            rssdiv.innerHTML = (rsspage);
         }
     }
 });
@@ -75,8 +75,8 @@ $.ajax({
 
 function loadData() {
 
-    var cityinput = 'salt lake city';
-    var regioninput = 'ut';
+    var cityinput = 'salt lake city',
+        regioninput = 'ut';
 
     request.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q=' + cityinput + ',' + regioninput + '&&APPID=ae41cf3cccc31ba9eb00adba1ac0e932&units=imperial');
     request.onload = loadComplete;
@@ -85,8 +85,8 @@ function loadData() {
 
 
 function loadComplete(evt) {
-    var fahrenheit = 0;
-    var kelvin = 0;
+    var fahrenheit = 0,
+        kelvin = 0;
 
     weatherData = JSON.parse(request.responseText);
 
