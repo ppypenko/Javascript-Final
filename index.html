@@ -11,36 +11,31 @@
 <body>
     <div id="headerApp">
         <div id="headerLogo">
-            <img style width="100px" src="images/burger.png" />
+            <img style width="120px" src="images/logo1.png" />
         </div>
         <div id="headerName">
-            <h1>Some organization</h1>
+            <h1>News and Weather Now</h1>
         </div>
         <div id="headerTime"></div>
     </div>
     <!--contains logo, header, time/date-->
 
-    <div class="dropdown">
-        <!--        <a class="account">My Account</a>-->
+    <div id="combine">
 
-        <div class="submenu">
-            <ul class="root">
-                <li><a href="#Dashboard">Dashboard</a></li>
-                <li><a href="#Profile">Profile</a></li>
-                <li><a href="#settings">Settings</a></li>
-                <li><a href="#feedback">Send Feedback</a></li>
-            </ul>
+        <div id="search">
+            <label id="cityLabel"> City:
+                <input type="text" id="txtCity"></input>
+            </label>
+            <label id='regionLabel'> Region:
+                <input type="text" id="txtRegion"></input>
+            </label>
+            <button onclick="changePlace()" type="button" class="btn">Search</button>
         </div>
+        <div id="weatherApp">
 
+        </div>
     </div>
-    <!--contains the dropdown selection box-->
-
-    <div id="weatherApp">
-        <input type="text" id="txtCity"></input>
-        <input type="text" id="txtRegion"></input>
-        <button onclick="changePlace()" type="button" id="brn">Search</button>
-        <h1 id="theDate" />
-    </div>
+    <fiv id="weatherDisplay">Weather Information</fiv>
     <div id="cityBox" />
     <div id="regionBox" />
     <div id="rssApp"></div>
