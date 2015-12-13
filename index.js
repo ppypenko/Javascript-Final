@@ -45,7 +45,7 @@ function createElements() {
     document.getElementById("weatherApp").appendChild(wind);
     wind.appendChild(w1);
     wind.setAttribute('id', 'wind');
-    
+
     var stockinput = document.createElement("input"),
         stockaddbtn = document.createElement("button"),
         stockcontainer = document.createElement('div'),
@@ -55,40 +55,42 @@ function createElements() {
     document.getElementById("stockApp").appendChild(stockaddbtn);
     document.getElementById("stockApp").appendChild(stockremovebtn);
     document.getElementById("stockApp").appendChild(stockcontainer);
-    
+
     stockcontainer.setAttribute("id", "stockBox");
     stockinput.setAttribute("id", "stockInfo");
     stockaddbtn.innerHTML = "Add Stock";
     stockaddbtn.addEventListener("click", addStock);
     stockremovebtn.innerHTML = "Remove Stock";
     stockremovebtn.addEventListener("click", removeStock);
-    
+
     var rssbox = document.createElement("div"),
         rssmenu = document.createElement("div"),
         rssselect = document.createElement("select");
-    
+
     rssmenu.setAttribute("id", "feedmenu");
     rssbox.setAttribute("id", "rssfeedbox");
     rssmenu.setAttribute("id", "rssmenubox");
     document.getElementById("rssApp").appendChild(rssmenu);
     document.getElementById("rssApp").appendChild(rssbox);
-    rssselect.innerHTML = "<option value='bbc'>BBC News</option>"+
+    rssselect.innerHTML = "<option value='bbc'>BBC News</option>" +
         "<option value='cnn'>CNN News</option>";
     document.getElementById("rssmenubox").appendChild(rssselect);
-    
+
 }
 
 function getCurrentTime() {
     var d = new Date();
     document.getElementById("headerTime").innerHTML = d;
 }
+
 function addStock() {
     var input = document.getElementById("stockInfo");
     stockdata += "," + input.value.toLowerCase();
     getStocks();
     input.value = "";
-    
+
 }
+
 function removeStock() {
     var input = document.getElementById("stockInfo"),
         stocklist = stockdata.split(","),
@@ -115,11 +117,12 @@ function changePlace() {
     loadData();
 
 }
+
 function getStocks() {
     $.ajax({
         url: "http://www.google.com/finance/info?q=" + stockdata,
         dataType: "jsonp",
-    
+
         success: function (data) {
             var stock = document.getElementById("stockBox"),
                 html = '<h2>Stocks:</h2>';
@@ -132,9 +135,9 @@ function getStocks() {
 }
 
 $.ajax({
-    url      : document.location.protocol + '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent(rssData),
-    dataType : 'json',
-    success  : function (data) {
+    url: document.location.protocol + '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent(rssData),
+    dataType: 'json',
+    success: function (data) {
         if (data.responseData.feed && data.responseData.feed.entries) {
             var rsspage = "<h2>BBC News</h2>";
             $.each(data.responseData.feed.entries, function (i, e) {
@@ -171,10 +174,57 @@ function loadComplete(evt) {
     document.getElementById("weather").innerHTML = "Weather Description: " + weatherData.weather[0].description;
     document.getElementById("temp").innerHTML = "Temperature: " + kelvin.toFixed(2) + "&deg; F";
     document.getElementById("wind").innerHTML = "Wind Speeds: " + weatherData.wind.speed + " mph";
-
-
-
+    
+    console.log(weatherData.weather[0].id);
+    
+    if(weatherData.weather[0].id >= 801 && weatherData.weather[0].id <= 804){
+        document.getElementById("weatherApp").style.backgroundImage = "url('images/cloudy.gif')";
+    }
+    else if(weatherData.weather[0].id >= 200 && weatherData.weather[0].id <= 531) {
+        document.getElementById("weatherApp").style.backgroundImage = "url('images/rain.gif')";
+    } else if(weatherData.weather[0].id >= 600 && weatherData.weather[0].id <= 622) {
+        document.getElementById("weatherApp").style.backgroundImage = "url('images/snow.gif')";
+    }else if(weatherData.weather[0].id = 800 || weatherData.weather[0].id >= 950 && weatherData.weather[0].id <= 956 ) {
+        document.getElementById("weatherApp").style.backgroundImage = "url('images/clear.gif')";
+    }else {
+        document.getElementById("weatherApp").style.backgroundImage = "url('images/thunderstorm.gif')";
+    }
 }
+
+
+
+//function formatAMPM(date) {
+//    var hours = date.getHours();
+//    var minutes = date.getMinutes();
+//    var ampm = hours >= 12 ? 'pm' : 'am';
+//    hours = hours % 12;
+//    hours = hours ? hours : 12; // the hour '0' should be '12'
+//    minutes = minutes < 10 ? '0' + minutes : minutes;
+//    var strTime = hours + ':' + minutes + ' ' + ampm;
+//    return strTime;
+//}
+
+window.onload = function () {
+//    var currentTime = new Date().getHours();
+    var currentTime =9;
+    console.log(currentTime);
+
+    if (currentTime >= 5 && currentTime < 11) {
+        document.getElementById("headerApp").style.backgroundImage = "url('images/morning.png')";
+    } else if (currentTime >= 11 && currentTime < 16) {
+        document.getElementById("headerApp").style.backgroundImage = "url('images/afternoon.png')";
+
+    } else if (currentTime >= 16 && currentTime < 22) {
+        document.getElementById("headerApp").style.backgroundImage = "url('images/evening.png')";
+
+    } else {
+        document.getElementById("headerApp").style.backgroundImage = "url('images/night.png')";
+
+    }
+}
+
+
+
 
 createElements();
 getCurrentTime();
