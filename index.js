@@ -60,23 +60,29 @@ function createElements() {
 
     var stockinput = document.createElement("input"),
         stockaddbtn = document.createElement("button"),
-        stockcontainer = document.createElement('ul'),
-        stockLabel = document.createElement("label"),
+        stockcontainer = document.createElement('div'),
+        stockUlist = document.createElement('ul'),
+        stockLabel = document.createElement("h2"),
         stockremovebtn = document.createElement("button");
-    document.getElementById("stockApp").appendChild(stockinput);
-    document.getElementById("stockApp").appendChild(stockaddbtn);
-    document.getElementById("stockApp").appendChild(stockremovebtn);
-    document.getElementById("stockApp").appendChild(stockcontainer);
 
-    stockcontainer.setAttribute("id", "ticker");
+    stockcontainer.setAttribute("id", "stockBox");
+    stockUlist.setAttribute("id", "ticker");
     stockinput.setAttribute("id", "stockInfo");
     stockinput.setAttribute("class", "stockui");
     stockaddbtn.setAttribute("class", "stockui");
     stockremovebtn.setAttribute("class", "stockui");
+    stockLabel.innerHTML = "Stocks:";
     stockaddbtn.innerHTML = "Add Stock";
     stockaddbtn.addEventListener("click", addStock);
     stockremovebtn.innerHTML = "Remove Stock";
     stockremovebtn.addEventListener("click", removeStock);
+    
+    document.getElementById("stockApp").appendChild(stockinput);
+    document.getElementById("stockApp").appendChild(stockaddbtn);
+    document.getElementById("stockApp").appendChild(stockremovebtn);
+    document.getElementById("stockApp").appendChild(stockLabel);
+    document.getElementById("stockApp").appendChild(stockcontainer);
+    document.getElementById("stockBox").appendChild(stockUlist);
 
     var rssbox = document.createElement("div"),
         rssmenu = document.createElement("div"),
@@ -89,37 +95,38 @@ function createElements() {
     document.getElementById("rssApp").appendChild(rssmenu);
     document.getElementById("rssApp").appendChild(rssbox);
     rssSelect.innerHTML = "<option value='bbc'>BBC News</option>" +
-        "<option value='cnn'>CNN News</option>" + 
-        "<option value='fox'>FOX News</option>" + 
-        "<option value='cbs'>CBS News</option>" + 
+        "<option value='cnn'>CNN News</option>" +
+        "<option value='fox'>FOX News</option>" +
+        "<option value='cbs'>CBS News</option>" +
         "<option value='abc'>ABC News</option>";
     document.getElementById("rssmenubox").appendChild(rssSelect);
     rssSelect.addEventListener("change", getSelectOption);
 
 }
-function getSelectOption(){
+
+function getSelectOption() {
     var e = document.getElementById("rssdrop").value;
-    switch(e){
-        case "bbc":
-            rssData = newsTypes[0];
-            rssHeader = headerTypes[0];
-            break;
-        case "cnn":
-            rssData = newsTypes[1];
-            rssHeader = headerTypes[1];
-            break;
-        case "fox":
-            rssData = newsTypes[2];
-            rssHeader = headerTypes[2];
-            break;
-        case "cbs":
-            rssData = newsTypes[3];
-            rssHeader = headerTypes[3];
-            break;
-        case "abc":
-            rssData = newsTypes[4];
-            rssHeader = headerTypes[4];
-            break;
+    switch (e) {
+    case "bbc":
+        rssData = newsTypes[0];
+        rssHeader = headerTypes[0];
+        break;
+    case "cnn":
+        rssData = newsTypes[1];
+        rssHeader = headerTypes[1];
+        break;
+    case "fox":
+        rssData = newsTypes[2];
+        rssHeader = headerTypes[2];
+        break;
+    case "cbs":
+        rssData = newsTypes[3];
+        rssHeader = headerTypes[3];
+        break;
+    case "abc":
+        rssData = newsTypes[4];
+        rssHeader = headerTypes[4];
+        break;
     }
     getFeeds();
 }
@@ -162,21 +169,35 @@ function changePlace() {
     loadData();
 }
 
-function getStocks() {
-    $.ajax({
-        url: "http://www.google.com/finance/info?q=" + stockdata,
-        dataType: "jsonp",
-
-        success: function (data) {
-            var stock = document.getElementById("stockBox"),
-                ulist = document.getElementById("ticker");
-                ulist.innerHTML = '';
+//function getStocks() {
+//    $.ajax({
+//        url: "http://www.google.com/finance/info?q=" + stockdata,
+//        dataType: "jsonp",
+//
+//        success: function (data) {
+//            var stock = document.getElementById("stockBox"),
+//                html = '<h2>Stocks:</h2>';
+//            $.each(data, function (i, e) {
+//                html += "<p>" + (i + 1) + ": " + e.t + " - Change: " + e.c + " Current: " + e.l_cur + "</p>";
+//            });
+//            stock.innerHTML = html;
+//        }
+//    });
+//}
+ function getStocks() {
+     $.ajax({
+         url: "http://www.google.com/finance/info?q=" + stockdata,
+         dataType: "jsonp",
+ 
+         success: function (data) {
+            var ulist = document.getElementById("ticker");
+            ulist.innerHTML = '';
             $.each(data, function (i, e) {
                 ulist.innerHTML += "<li>" + (i + 1) + ": " + e.t + " - Change: " + e.c + " Current: " + e.l_cur + "</li>";
             });
-        }
-    });
-}
+         }
+     });
+ }
 function getFeeds(){
     $.ajax({
     url: document.location.protocol + '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent(rssData),
@@ -274,6 +295,7 @@ function ticker() {
     });
 }
 
+setInterval(getCurrentTime, 10);
 
 
 

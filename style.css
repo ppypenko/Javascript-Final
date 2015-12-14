@@ -4,24 +4,22 @@ body {
 }
 
 #combine {
+    text-align: center;
     width: 400px;
     height: 500px;
     position: relative;
     margin: 50px;
     border-radius: 20px;
     float: right;
-    right: 200px;
-    padding: 10px;
-    background-color: gray;
+    right: 100px;
+    padding: 20px;
+    box-shadow: 0px 0px 5px #DDD;
+    background-color: #F5F3E5;
     text-align: center;
 }
 
 #search {
-/*    position: relative;*/
-/*
-    left: 40px;
-    top: 40px;
-*/
+    position: relative;
     width: 350px;
     height: 125px;
     padding: 12px;
@@ -49,7 +47,8 @@ body {
 #weatherDisplay {
     padding: 10px;
     font-size: 40px;
-    text-align: center;
+    top: 60px;
+    left: 270px;
 }
 
 #weatherApp {
@@ -66,7 +65,6 @@ body {
 }
 
 #headerTime {
-    text-align: center;
     margin: auto;
     width: 600px;
     height: 50px;
@@ -74,7 +72,6 @@ body {
 }
 
 #headerName {
-    text-align: center;
     margin: auto;
     position: relative;
     top: 13px;
@@ -88,6 +85,14 @@ body {
     top: 10px;
 }
 
+#weather,
+#temp,
+#wind,
+#city {
+    position: relative;
+    right: 10px;
+}
+
 #headerApp {
     width: 2000px;
     left: -20px;
@@ -98,23 +103,28 @@ body {
 
 #rssApp {
     width: 50%;
+    left: 100px;
+    top: 40px;
     position: relative;
-    margin: 50px;
     padding: 20px;
-    background-color: gray;
+    box-shadow: 0px 0px 5px #DDD;
+    background-color: #F5F3E5;
     border-radius: 20px;
 }
 
+
 #stockApp {
     position: relative;
-/*    top: -600px;*/
+    overflow: hidden;
+    top: -140px;
     padding: 20px;
-    right: 200px;
+    right: 150px;
     height: 300px;
     width: 400px;
     float: right;
     border-radius: 20px;
-    background-color: gray;
+    background-color: #F5F3E5;
+    text-align: center;
 }
 .stockui {
     margin: 10px;
@@ -128,6 +138,10 @@ body {
 /*TICKER*/
 
 .ticker {
+    position: relative;
+    float: right;
+    top: -200px;
+    right: 100px;
     width: 400px;
     height: 395px;
     overflow: hidden;
@@ -136,12 +150,6 @@ body {
     box-shadow: 0px 0px 5px #DDD;
     background-color: #F5F3E5;
     text-align: center;
-}
-
-
-.ticker h3 {
-    padding: 0 0 10px 10px;
-    border-bottom: 1px solid #A7A7A7;
 }
 
 ul {
