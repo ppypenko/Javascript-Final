@@ -70,6 +70,9 @@ function createElements() {
 
     stockcontainer.setAttribute("id", "ticker");
     stockinput.setAttribute("id", "stockInfo");
+    stockinput.setAttribute("class", "stockui");
+    stockaddbtn.setAttribute("class", "stockui");
+    stockremovebtn.setAttribute("class", "stockui");
     stockaddbtn.innerHTML = "Add Stock";
     stockaddbtn.addEventListener("click", addStock);
     stockremovebtn.innerHTML = "Remove Stock";

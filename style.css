@@ -7,19 +7,23 @@ body {
     width: 400px;
     height: 500px;
     position: relative;
-    top: 40px;
+    margin: 50px;
     border-radius: 20px;
     float: right;
     right: 200px;
+    padding: 10px;
     background-color: gray;
+    text-align: center;
 }
 
 #search {
-    position: relative;
+/*    position: relative;*/
+/*
     left: 40px;
     top: 40px;
-    width: 300px;
-    height: 150px;
+*/
+    width: 350px;
+    height: 125px;
     padding: 12px;
 }
 
@@ -43,11 +47,9 @@ body {
 }
 
 #weatherDisplay {
-    position: relative;
-    float: right;
+    padding: 10px;
     font-size: 40px;
-    top: 60px;
-    left: 170px;
+    text-align: center;
 }
 
 #weatherApp {
@@ -105,14 +107,21 @@ body {
 
 #stockApp {
     position: relative;
-    top: -600px;
+/*    top: -600px;*/
     padding: 20px;
     right: 200px;
-    height: 500px;
+    height: 300px;
     width: 400px;
     float: right;
     border-radius: 20px;
     background-color: gray;
+}
+.stockui {
+    margin: 10px;
+    border-radius: 5px;
+}
+#stockInfo {
+    width: 90%;
 }
 
 
@@ -126,8 +135,9 @@ body {
     border-radius: 5px;
     box-shadow: 0px 0px 5px #DDD;
     background-color: #F5F3E5;
-    text-align: left;
+    text-align: center;
 }
+
 
 .ticker h3 {
     padding: 0 0 10px 10px;
