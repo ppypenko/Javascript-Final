@@ -7,6 +7,7 @@ var weatherData,
     today = new Date(),
     dd = today.getDate(),
     mm = today.getMonth() + 1,
+    myArray = {},
     yyyy = today.getFullYear(),
     cityinput = 'salt lake city',
     regioninput = 'ut',
@@ -174,19 +175,18 @@ function loadComplete(evt) {
     document.getElementById("weather").innerHTML = "Weather Description: " + weatherData.weather[0].description;
     document.getElementById("temp").innerHTML = "Temperature: " + kelvin.toFixed(2) + "&deg; F";
     document.getElementById("wind").innerHTML = "Wind Speeds: " + weatherData.wind.speed + " mph";
-    
+
     console.log(weatherData.weather[0].id);
-    
-    if(weatherData.weather[0].id >= 801 && weatherData.weather[0].id <= 804){
+
+    if (weatherData.weather[0].id >= 801 && weatherData.weather[0].id <= 804) {
         document.getElementById("weatherApp").style.backgroundImage = "url('images/cloudy.gif')";
-    }
-    else if(weatherData.weather[0].id >= 200 && weatherData.weather[0].id <= 531) {
+    } else if (weatherData.weather[0].id >= 200 && weatherData.weather[0].id <= 531) {
         document.getElementById("weatherApp").style.backgroundImage = "url('images/rain.gif')";
-    } else if(weatherData.weather[0].id >= 600 && weatherData.weather[0].id <= 622) {
+    } else if (weatherData.weather[0].id >= 600 && weatherData.weather[0].id <= 622) {
         document.getElementById("weatherApp").style.backgroundImage = "url('images/snow.gif')";
-    }else if(weatherData.weather[0].id = 800 || weatherData.weather[0].id >= 950 && weatherData.weather[0].id <= 956 ) {
+    } else if (weatherData.weather[0].id = 800 || weatherData.weather[0].id >= 950 && weatherData.weather[0].id <= 956) {
         document.getElementById("weatherApp").style.backgroundImage = "url('images/clear.gif')";
-    }else {
+    } else {
         document.getElementById("weatherApp").style.backgroundImage = "url('images/thunderstorm.gif')";
     }
 }
@@ -205,8 +205,8 @@ function loadComplete(evt) {
 //}
 
 window.onload = function () {
-//    var currentTime = new Date().getHours();
-    var currentTime =9;
+    //    var currentTime = new Date().getHours();
+    var currentTime = 9;
     console.log(currentTime);
 
     if (currentTime >= 5 && currentTime < 11) {
@@ -223,6 +223,14 @@ window.onload = function () {
     }
 }
 
+
+function ticker() {
+    $('#ticker li:first').slideUp(function () {
+        $(this).appendTo($('#ticker')).slideDown();
+    });
+}
+
+setInterval(ticker, 2000);
 
 
 

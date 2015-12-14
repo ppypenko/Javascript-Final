@@ -1,7 +1,6 @@
 body {
     background-color: white;
     color: black;
-    margin: auto;
 }
 
 #combine {
@@ -47,7 +46,7 @@ body {
     position: relative;
     float: right;
     font-size: 40px;
-    top: 50px;
+    top: 60px;
     left: 170px;
 }
 
@@ -75,20 +74,24 @@ body {
 #headerName {
     text-align: center;
     margin: auto;
+    position: relative;
+    top: 13px;
     width: 400px;
 }
 
 #headerLogo {
     position: relative;
     float: left;
+    left: 20px;
+    top: 10px;
 }
 
 #headerApp {
-    width: 100%;
+    width: 2000px;
+    left: -20px;
     height: 100px;
     position: relative;
-    left: 0px;
-    top: -20px;
+    top: -30px;
 }
 
 #rssApp {
@@ -110,4 +113,37 @@ body {
     float: right;
     border-radius: 20px;
     background-color: gray;
+}
+
+
+/*TICKER*/
+
+.ticker {
+    width: 400px;
+    height: 395px;
+    overflow: hidden;
+    border: 1px solid #DDD;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px #DDD;
+    background-color: #F5F3E5;
+    text-align: left;
+}
+
+.ticker h3 {
+    padding: 0 0 10px 10px;
+    border-bottom: 1px solid #A7A7A7;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-style: italic;
+}
+
+ul li {
+    list-style: none;
+    height: 50px;
+    padding: 7px;
+    border-bottom: 1px solid #D6CFB8;
 }
