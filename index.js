@@ -63,10 +63,6 @@ function createElements() {
         stockcontainer = document.createElement('div'),
         stockLabel = document.createElement("label"),
         stockremovebtn = document.createElement("button");
-    document.getElementById("stockApp").appendChild(stockinput);
-    document.getElementById("stockApp").appendChild(stockaddbtn);
-    document.getElementById("stockApp").appendChild(stockremovebtn);
-    document.getElementById("stockApp").appendChild(stockcontainer);
 
     stockcontainer.setAttribute("id", "stockBox");
     stockinput.setAttribute("id", "stockInfo");
@@ -86,37 +82,38 @@ function createElements() {
     document.getElementById("rssApp").appendChild(rssmenu);
     document.getElementById("rssApp").appendChild(rssbox);
     rssSelect.innerHTML = "<option value='bbc'>BBC News</option>" +
-        "<option value='cnn'>CNN News</option>" + 
-        "<option value='fox'>FOX News</option>" + 
-        "<option value='cbs'>CBS News</option>" + 
+        "<option value='cnn'>CNN News</option>" +
+        "<option value='fox'>FOX News</option>" +
+        "<option value='cbs'>CBS News</option>" +
         "<option value='abc'>ABC News</option>";
     document.getElementById("rssmenubox").appendChild(rssSelect);
     rssSelect.addEventListener("change", getSelectOption);
 
 }
-function getSelectOption(){
+
+function getSelectOption() {
     var e = document.getElementById("rssdrop").value;
-    switch(e){
-        case "bbc":
-            rssData = newsTypes[0];
-            rssHeader = headerTypes[0];
-            break;
-        case "cnn":
-            rssData = newsTypes[1];
-            rssHeader = headerTypes[1];
-            break;
-        case "fox":
-            rssData = newsTypes[2];
-            rssHeader = headerTypes[2];
-            break;
-        case "cbs":
-            rssData = newsTypes[3];
-            rssHeader = headerTypes[3];
-            break;
-        case "abc":
-            rssData = newsTypes[4];
-            rssHeader = headerTypes[4];
-            break;
+    switch (e) {
+    case "bbc":
+        rssData = newsTypes[0];
+        rssHeader = headerTypes[0];
+        break;
+    case "cnn":
+        rssData = newsTypes[1];
+        rssHeader = headerTypes[1];
+        break;
+    case "fox":
+        rssData = newsTypes[2];
+        rssHeader = headerTypes[2];
+        break;
+    case "cbs":
+        rssData = newsTypes[3];
+        rssHeader = headerTypes[3];
+        break;
+    case "abc":
+        rssData = newsTypes[4];
+        rssHeader = headerTypes[4];
+        break;
     }
     getFeeds();
 }
@@ -159,25 +156,25 @@ function changePlace() {
     loadData();
 }
 
-function getStocks() {
+//function getStocks() {
+//    $.ajax({
+//        url: "http://www.google.com/finance/info?q=" + stockdata,
+//        dataType: "jsonp",
+//
+//        success: function (data) {
+//            var stock = document.getElementById("stockBox"),
+//                html = '<h2>Stocks:</h2>';
+//            $.each(data, function (i, e) {
+//                html += "<p>" + (i + 1) + ": " + e.t + " - Change: " + e.c + " Current: " + e.l_cur + "</p>";
+//            });
+//            stock.innerHTML = html;
+//        }
+//    });
+//}
+function getFeeds() {
     $.ajax({
-        url: "http://www.google.com/finance/info?q=" + stockdata,
-        dataType: "jsonp",
-
-        success: function (data) {
-            var stock = document.getElementById("stockBox"),
-                html = '<h2>Stocks:</h2>';
-            $.each(data, function (i, e) {
-                html += "<p>" + (i + 1) + ": " + e.t + " - Change: " + e.c + " Current: " + e.l_cur + "</p>";
-            });
-            stock.innerHTML = html;
-        }
-    });
-}
-function getFeeds(){
-    $.ajax({
-    url: document.location.protocol + '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent(rssData),
-    dataType: 'json',
+        url: document.location.protocol + '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent(rssData),
+        dataType: 'json',
         success: function (data) {
             if (data.responseData.feed && data.responseData.feed.entries) {
                 var rsspage = "<h2>" + rssHeader + "</h2>";
@@ -272,11 +269,12 @@ function ticker() {
 }
 
 setInterval(ticker, 2000);
+setInterval(getCurrentTime, 10);
 
 
 
 createElements();
 getCurrentTime();
 loadData();
-getStocks();
+//getStocks();
 getFeeds();
