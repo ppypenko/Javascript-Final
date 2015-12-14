@@ -60,11 +60,11 @@ function createElements() {
 
     var stockinput = document.createElement("input"),
         stockaddbtn = document.createElement("button"),
-        stockcontainer = document.createElement('div'),
+        stockcontainer = document.createElement('ul'),
         stockLabel = document.createElement("label"),
         stockremovebtn = document.createElement("button");
 
-    stockcontainer.setAttribute("id", "stockBox");
+    stockcontainer.setAttribute("id", "ticker");
     stockinput.setAttribute("id", "stockInfo");
     stockaddbtn.innerHTML = "Add Stock";
     stockaddbtn.addEventListener("click", addStock);
@@ -176,6 +176,20 @@ function getFeeds() {
         url: document.location.protocol + '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent(rssData),
         dataType: 'json',
         success: function (data) {
+            var stock = document.getElementById("stockBox"),
+                ulist = document.getElementById("ticker");
+                ulist.innerHTML = '';
+            $.each(data, function (i, e) {
+                ulist.innerHTML += "<li>" + (i + 1) + ": " + e.t + " - Change: " + e.c + " Current: " + e.l_cur + "</li>";
+            });
+        }
+    });
+}
+function getFeeds(){
+    $.ajax({
+    url: document.location.protocol + '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent(rssData),
+    dataType: 'json',
+        success: function (data) {
             if (data.responseData.feed && data.responseData.feed.entries) {
                 var rsspage = "<h2>" + rssHeader + "</h2>";
                 $.each(data.responseData.feed.entries, function (i, e) {
@@ -268,8 +282,8 @@ function ticker() {
     });
 }
 
-setInterval(ticker, 2000);
 setInterval(getCurrentTime, 10);
+
 
 
 
@@ -278,3 +292,4 @@ getCurrentTime();
 loadData();
 //getStocks();
 getFeeds();
+setInterval(ticker, 2000);

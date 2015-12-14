@@ -118,6 +118,7 @@ body {
 #stockApp {
     position: relative;
     top: -600px;
+    padding: 20px;
     right: 200px;
     height: 500px;
     width: 400px;
