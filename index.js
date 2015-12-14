@@ -11,11 +11,22 @@ var weatherData,
     cityinput = 'salt lake city',
     regioninput = 'ut',
     weatherData,
-    rssData = "http://rss.cnn.com/rss/cnn_topstories.rss",
+    rssData = "http://feeds.bbci.co.uk/news/rss.xml?edition=uk",
+    rssHeader = "BBC News",
     stockdata = "goog,msft,aapl,amzn,msft,wmt,bby,fb,twtr,lnkd",
     newsTypes = [
         "http://feeds.bbci.co.uk/news/rss.xml?edition=uk",
-        "http://rss.cnn.com/rss/cnn_topstories.rss"
+        "http://rss.cnn.com/rss/cnn_topstories.rss",
+        "http://feeds.foxnews.com/foxnews/latest",
+        "http://www.cbsnews.com/latest/rss/main",
+        "http://feeds.abcnews.com/abcnews/topstories"
+    ],
+    headerTypes = [
+        "BBC News",
+        "CNN News",
+        "FOX News",
+        "CBS News",
+        "ABC News"
     ];
 
 
@@ -65,17 +76,48 @@ function createElements() {
 
     var rssbox = document.createElement("div"),
         rssmenu = document.createElement("div"),
-        rssselect = document.createElement("select");
+        rssSelect = document.createElement("select");
 
     rssmenu.setAttribute("id", "feedmenu");
     rssbox.setAttribute("id", "rssfeedbox");
     rssmenu.setAttribute("id", "rssmenubox");
+    rssSelect.setAttribute("id", "rssdrop");
     document.getElementById("rssApp").appendChild(rssmenu);
     document.getElementById("rssApp").appendChild(rssbox);
-    rssselect.innerHTML = "<option value='bbc'>BBC News</option>" +
-        "<option value='cnn'>CNN News</option>";
-    document.getElementById("rssmenubox").appendChild(rssselect);
+    rssSelect.innerHTML = "<option value='bbc'>BBC News</option>" +
+        "<option value='cnn'>CNN News</option>" + 
+        "<option value='fox'>FOX News</option>" + 
+        "<option value='cbs'>CBS News</option>" + 
+        "<option value='abc'>ABC News</option>";
+    document.getElementById("rssmenubox").appendChild(rssSelect);
+    rssSelect.addEventListener("change", getSelectOption);
 
+}
+function getSelectOption(){
+    var e = document.getElementById("rssdrop").value;
+    switch(e){
+        case "bbc":
+            rssData = newsTypes[0];
+            rssHeader = headerTypes[0];
+            break;
+        case "cnn":
+            rssData = newsTypes[1];
+            rssHeader = headerTypes[1];
+            break;
+        case "fox":
+            rssData = newsTypes[2];
+            rssHeader = headerTypes[2];
+            break;
+        case "cbs":
+            rssData = newsTypes[3];
+            rssHeader = headerTypes[3];
+            break;
+        case "abc":
+            rssData = newsTypes[4];
+            rssHeader = headerTypes[4];
+            break;
+    }
+    getFeeds();
 }
 
 function getCurrentTime() {
@@ -88,7 +130,6 @@ function addStock() {
     stockdata += "," + input.value.toLowerCase();
     getStocks();
     input.value = "";
-
 }
 
 function removeStock() {
@@ -115,7 +156,6 @@ function changePlace() {
     cityinput = document.getElementById("txtCity").value;
     regioninput = document.getElementById("txtRegion").value;
     loadData();
-
 }
 
 function getStocks() {
@@ -133,22 +173,23 @@ function getStocks() {
         }
     });
 }
-
-$.ajax({
+function getFeeds(){
+    $.ajax({
     url: document.location.protocol + '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent(rssData),
     dataType: 'json',
-    success: function (data) {
-        if (data.responseData.feed && data.responseData.feed.entries) {
-            var rsspage = "<h2>BBC News</h2>";
-            $.each(data.responseData.feed.entries, function (i, e) {
-                rsspage += "<p><a href='" + e.link + "'>" + e.title + "</a></p>";
-                rsspage += "<p>" + e.contentSnippet + "</p>";
-            });
-            document.getElementById("rssfeedbox").innerHTML = rsspage;
-            //rssdiv.innerHTML = (rsspage);
+        success: function (data) {
+            if (data.responseData.feed && data.responseData.feed.entries) {
+                var rsspage = "<h2>" + rssHeader + "</h2>";
+                $.each(data.responseData.feed.entries, function (i, e) {
+                    rsspage += "<p><a href='" + e.link + "'>" + e.title + "</a></p>";
+                    rsspage += "<p>" + e.contentSnippet + "</p>";
+                });
+                document.getElementById("rssfeedbox").innerHTML = rsspage;
+            }
         }
-    }
-});
+    });
+}
+
 
 
 function loadData() {
@@ -230,3 +271,4 @@ createElements();
 getCurrentTime();
 loadData();
 getStocks();
+getFeeds();
