@@ -60,7 +60,7 @@ function createElements() {
 
     var stockinput = document.createElement("input"),
         stockaddbtn = document.createElement("button"),
-        stockcontainer = document.createElement('div'),
+        stockcontainer = document.createElement('ul'),
         stockLabel = document.createElement("label"),
         stockremovebtn = document.createElement("button");
     document.getElementById("stockApp").appendChild(stockinput);
@@ -68,7 +68,7 @@ function createElements() {
     document.getElementById("stockApp").appendChild(stockremovebtn);
     document.getElementById("stockApp").appendChild(stockcontainer);
 
-    stockcontainer.setAttribute("id", "stockBox");
+    stockcontainer.setAttribute("id", "ticker");
     stockinput.setAttribute("id", "stockInfo");
     stockaddbtn.innerHTML = "Add Stock";
     stockaddbtn.addEventListener("click", addStock);
@@ -166,11 +166,11 @@ function getStocks() {
 
         success: function (data) {
             var stock = document.getElementById("stockBox"),
-                html = '<h2>Stocks:</h2>';
+                ulist = document.getElementById("ticker");
+                ulist.innerHTML = '';
             $.each(data, function (i, e) {
-                html += "<p>" + (i + 1) + ": " + e.t + " - Change: " + e.c + " Current: " + e.l_cur + "</p>";
+                ulist.innerHTML += "<li>" + (i + 1) + ": " + e.t + " - Change: " + e.c + " Current: " + e.l_cur + "</li>";
             });
-            stock.innerHTML = html;
         }
     });
 }
@@ -271,7 +271,7 @@ function ticker() {
     });
 }
 
-setInterval(ticker, 2000);
+
 
 
 
@@ -280,3 +280,4 @@ getCurrentTime();
 loadData();
 getStocks();
 getFeeds();
+setInterval(ticker, 2000);
