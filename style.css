@@ -1,6 +1,5 @@
 body {
-    background-color: white;
-    color: black;
+    background-color: #001;
 }
 
 #combine {
@@ -24,7 +23,9 @@ body {
     height: 125px;
     padding: 12px;
 }
-
+#rssdrop {
+    border-radius: 5px;
+}
 #weatherinfo {
     font-size: 43;
 }

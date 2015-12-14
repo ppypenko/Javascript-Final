@@ -168,22 +168,6 @@ function changePlace() {
     regioninput = document.getElementById("txtRegion").value;
     loadData();
 }
-
-//function getStocks() {
-//    $.ajax({
-//        url: "http://www.google.com/finance/info?q=" + stockdata,
-//        dataType: "jsonp",
-//
-//        success: function (data) {
-//            var stock = document.getElementById("stockBox"),
-//                html = '<h2>Stocks:</h2>';
-//            $.each(data, function (i, e) {
-//                html += "<p>" + (i + 1) + ": " + e.t + " - Change: " + e.c + " Current: " + e.l_cur + "</p>";
-//            });
-//            stock.innerHTML = html;
-//        }
-//    });
-//}
  function getStocks() {
      $.ajax({
          url: "http://www.google.com/finance/info?q=" + stockdata,
@@ -270,19 +254,23 @@ function loadComplete(evt) {
 //}
 
 window.onload = function () {
-    //    var currentTime = new Date().getHours();
-    var currentTime = 9;
+    var currentTime = new Date().getHours();
+    //var currentTime = 17;
     console.log(currentTime);
 
     if (currentTime >= 5 && currentTime < 11) {
+        document.getElementById("headerApp").style.color = "#000";
         document.getElementById("headerApp").style.backgroundImage = "url('images/morning.png')";
     } else if (currentTime >= 11 && currentTime < 16) {
+        document.getElementById("headerApp").style.color = "#000";
         document.getElementById("headerApp").style.backgroundImage = "url('images/afternoon.png')";
 
     } else if (currentTime >= 16 && currentTime < 22) {
+        document.getElementById("headerApp").style.color = "#000";
         document.getElementById("headerApp").style.backgroundImage = "url('images/evening.png')";
 
     } else {
+        document.getElementById("headerApp").style.color = "#fff";
         document.getElementById("headerApp").style.backgroundImage = "url('images/night.png')";
 
     }
